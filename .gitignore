@@ -1,2 +1,4 @@
-./*.txt
-./.tmp
+*.txt
+.tmp
+bin/
+*.class

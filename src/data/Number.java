@@ -49,7 +49,6 @@ public class Number {
 				Axes.NOT_SPECIFIED, Style.LINES, LineType.POSTSCRIPT_SOLID,
 				PointType.POSTSCRIPT_CIRCLE_DOT);
 		nPlot.pushGraph(nGraph);
-		System.out.println(tmpFile.getParent());
 		nPlot.setTitle("Number: " + Integer.toString(number));
 		try {
 			nPlot.plot();

@@ -17,6 +17,10 @@ public class Number {
 	private int number;
 	private Point[] points;
 
+	public Number() {
+		this.number = -1;
+	}
+
 	public Number(int number) {
 		this.number = number;
 	}
@@ -84,6 +88,14 @@ public class Number {
 		}
 		tString.trim();
 		return tString;
+	}
+
+	public double distance(Number toClassify) {
+		double distance = 0;
+		for (int i = 0; i < this.points.length; i++) {
+			distance = this.points[i].distance(toClassify.points[i]);
+		}
+		return 1;
 	}
 
 }

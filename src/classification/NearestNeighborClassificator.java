@@ -1,43 +1,26 @@
 package classification;
 
 import java.util.Arrays;
-import java.util.List;
 
-import data.Number;
+import data.Representative;
 
 public class NearestNeighborClassificator {
 
 	int k = 1;
-	List<Number> data;
+	Representative[] data;
 
 	public NearestNeighborClassificator() {
 
 	}
 
-	public int classify(Number toClassify) {
+	public int classify(Representative toClassify, int numberOfClasses) {
 
-		class Neighbor implements Comparable<Neighbor> {
-			public final double distance;
-			public final Number number;
 
-			public Neighbor(Number number, double distance) {
-				this.distance = distance;
-				this.number = number;
-			}
-
-			@Override
-			public int compareTo(Neighbor o) {
-				if (this.distance < o.distance)
-					return -1;
-				else
-					return 1;
-			}
-		}
 
 		Neighbor[] neighbors = new Neighbor[getK()];
 
-		for (int i = 0; i < data.size(); i++) {
-			double newDistance = data.get(i).distance(toClassify);
+		for (int i = 0; i < data.length; i++) {
+			double newDistance = data[i].distance(toClassify);
 			if (i < getK()) {
 				neighbors[i] = new Neighbor(toClassify, newDistance);
 			} else if (newDistance < neighbors[neighbors.length - 1].distance) {
@@ -45,13 +28,13 @@ public class NearestNeighborClassificator {
 				Arrays.sort(neighbors);
 			}
 		}
-		int[] hist = new int[10];
+		int[] hist = new int[numberOfClasses];
 		for (int i = 0; i < neighbors.length; i++) {
-			hist[neighbors[i].number.getNumber()]++;
+			hist[neighbors[i].representative.getDataClass()]++;
 		}
 		int max = 0;
 		int number = -1;
-		for (int i = 0; i < neighbors.length; i++) {
+		for (int i = 0; i < numberOfClasses; i++) {
 			if (hist[i] > max) {
 				max = hist[i];
 				number = i;
@@ -68,11 +51,11 @@ public class NearestNeighborClassificator {
 		this.k = k;
 	}
 
-	public List<Number> getData() {
+	public Representative[] getData() {
 		return data;
 	}
 
-	public void setData(List<Number> data) {
+	public void setData(Representative[] data) {
 		this.data = data;
 	}
 }

@@ -7,19 +7,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import data.Number;
+import data.Representative;
 
-public class NumberReader {
+public class DataReader {
 
 	private File input;
 
-	private List<Number> data;
+	private ArrayList<Representative> data;
+	
+	private int pointsDimension = 2;
 
-	public NumberReader() {
-
+	public DataReader() {
 	}
 
-	public NumberReader(String fName) {
+	public DataReader(String fName) {
 		this.input = new File(fName);
 	}
 
@@ -36,18 +37,17 @@ public class NumberReader {
 			System.out.println("File does not exist");
 			e.printStackTrace();
 		}
-		this.data = new ArrayList<Number>(1000);
+		this.data = new ArrayList<Representative>(1000);
 		try {
 			String lString = "";
 			while ((lString = fReader.readLine()) != null) {
 				String[] tokens = lString.trim().split("\\s+");
-				int[] points = new int[tokens.length - 1];
+				double[] points = new double[tokens.length - 1];
 				for (int i = 0; i < tokens.length - 1; i++) {
-					points[i] = Integer.parseInt(tokens[i]);
+					points[i] = Double.parseDouble(tokens[i]);
 				}
-				Number parsedNumber = new Number(
-						Integer.parseInt(tokens[tokens.length - 1]));
-				parsedNumber.setPoints(points);
+				Representative parsedNumber = new Representative(Integer.parseInt(tokens[tokens.length - 1]));
+				parsedNumber.setPoints(points, pointsDimension);
 				data.add(parsedNumber);
 			}
 		} catch (IOException e) {
@@ -56,7 +56,7 @@ public class NumberReader {
 		}
 	}
 
-	public List<Number> getData() {
+	public List<Representative> getData() {
 		return this.data;
 	}
 }

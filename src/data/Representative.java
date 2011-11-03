@@ -55,7 +55,7 @@ public class Representative {
 	public double distance(Representative toClassify) {
 		double distance = 0;
 		for (int i = 0; i < this.points.length; i++) {
-			distance = this.points[i].distance(toClassify.points[i]);
+			distance += this.points[i].distance(toClassify.points[i]);
 		}
 		return distance;
 	}

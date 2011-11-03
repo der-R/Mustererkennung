@@ -15,16 +15,14 @@ public class NearestNeighborClassificator {
 
 	public int classify(Representative toClassify, int numberOfClasses) {
 
-
-
 		Neighbor[] neighbors = new Neighbor[getK()];
 
 		for (int i = 0; i < data.length; i++) {
 			double newDistance = data[i].distance(toClassify);
 			if (i < getK()) {
-				neighbors[i] = new Neighbor(toClassify, newDistance);
+				neighbors[i] = new Neighbor(data[i], newDistance);
 			} else if (newDistance < neighbors[neighbors.length - 1].distance) {
-				neighbors[neighbors.length - 1] = new Neighbor(toClassify, newDistance);
+				neighbors[neighbors.length - 1] = new Neighbor(data[i], newDistance);
 				Arrays.sort(neighbors);
 			}
 		}
